@@ -1,0 +1,25 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    display: flex;
+    height: 100vh; /* Chiều cao của container bằng chiều cao của viewport */
+}
+
+.panel {
+    flex: 1; /* Các panel chiếm đều không gian có sẵn */
+    border: 1px solid #ccc;
+    padding: 10px;
+    overflow: auto; 
+    min-width: 10px;
+    white-space: pre-wrap; 
+    font-family: monospace; 
+}
+
+/* Thêm một chút khoảng cách giữa các panel */
+.panel:not(:last-child) {
+    margin-right: 5px;
+}
