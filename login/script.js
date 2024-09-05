@@ -7,7 +7,7 @@ document.getElementById("loginForm").addEventListener("submit", async (event) =>
     event.preventDefault(); 
     let address = document.getElementById("address").value;
     try {
-        const response = await fetch(`http://${address}/bot-tracking/login`, {
+        const response = await fetch(`http://${address}/auth`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

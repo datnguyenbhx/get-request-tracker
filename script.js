@@ -21,13 +21,14 @@ async function fetchStatus(path="",index=0) {
     } catch (error) {
         console.error('Error fetching status:', error);
         document.getElementById(`panel${index}`).textContent = 'Error fetching status';
-        // document.cookie = "address=;path=/";
+        document.cookie = "address=;path=/";
     }
 }
 function refreshData(){
-    fetchStatus("login",1); 
-    fetchStatus("error",2); 
+    fetchStatus("run",1); 
+    fetchStatus("login",2); 
     fetchStatus("token",3); 
+    fetchStatus("error",4); 
 }
 setInterval(refreshData, 10000);
-
+refreshData()
