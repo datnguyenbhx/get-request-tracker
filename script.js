@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 async function fetchStatus(path="",index=0) {
     try {
-        const response = await fetch(`http://${getCookie("address")}/bot-tracking/logs/${path}`);
+        const response = await fetch(`http://${getCookie("address")}/logs/${path}`);
         if (response.ok) {
             const data = await response.json();
             document.getElementById(`panel${index}`).textContent = data.response;
