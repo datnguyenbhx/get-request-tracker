@@ -3,31 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resizable Panels</title>
+    <title>GET Requesst Tracker</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <div class="flex">
-            <h2 class="text-center">RUN</h2>
-            <div class="panel" id="panel1">
-            </div>
-        </div>
-        <div class="flex">
-            <h2 class="text-center">LOGIN</h2>
-            <div class="panel" id="panel2">
-            </div>
-        </div>
-        <div class="flex">
-            <h2 class="text-center">TOKEN</h2>
-            <div class="panel" id="panel3">
+    <div class="root">
+        <div>
+            <button class="c-green" onclick="addBox(event)">add</button>
+            <hr>
+            <div class="resize-box" style="display: none;">
+                <input placeholder="url" class="url-input">
+                <button class="c-red" onclick="rmParent(event)">close</button>
+                <br>
+                <div class="content">
+                </div>
             </div>
         </div>
     </div>
-    <div class="container-30">
-        <h2 class="text-center">ERROR</h2>
-        <div class="panel" id="panel4"></div>
-        <script src="script.js"></script>
-    </div>
+    <script src="script.js"></script>
 </body>
 </html>

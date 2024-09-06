@@ -1,34 +1,49 @@
-function getCookie(name) {
-    let value = "; " + document.cookie;
-    let parts = value.split("; " + name + "=");
-    if (parts.length === 2) return parts.pop().split(";").shift();
-}
-document.addEventListener("DOMContentLoaded", function() {
-    const token = getCookie('address');
-    if (!token) {
-        window.location.href = "/login";
-    }
-});
-async function fetchStatus(path="",index=0) {
+async function apiCall(path="") {
+    console.log(path)
     try {
-        const response = await fetch(`http://${getCookie("address")}/logs/${path}`);
+        const response = await fetch(path);
         if (response.ok) {
-            const data = await response.json();
-            document.getElementById(`panel${index}`).textContent = data.response;
+            try {
+                const data = await response.json();
+                return Object.entries(data)
+                    .map(([key, value]) => `${key}\n___________\n${value}`)
+                    .join("\n");
+
+            } catch (error) {
+                console.error('Error converting response:', error)
+                const data = await response.text()
+                return data
+            }
         } else {
-            document.getElementById(`panel${index}`).textContent = 'Failed to fetch logs';
+            return 'Failed to fetch logs';
         }
     } catch (error) {
         console.error('Error fetching status:', error);
-        document.getElementById(`panel${index}`).textContent = 'Error fetching status';
-        document.cookie = "address=;path=/";
     }
 }
-function refreshData(){
-    fetchStatus("run",1); 
-    fetchStatus("login",2); 
-    fetchStatus("token",3); 
-    fetchStatus("error",4); 
+
+function addBox(event) {
+    var parentDiv = event.target.parentElement;
+    var newBox = parentDiv.querySelector('.resize-box').cloneNode(true);
+    newBox.style.display = "inline-block";
+    parentDiv.appendChild(newBox);
+}
+
+function rmParent(event) {
+    var parentElement = event.target.parentElement;
+    parentElement.remove();
+}
+
+async function refreshData(){
+    let urls = Array.from(document.querySelectorAll(".url-input"));
+    urls.splice(0, 1); 
+    for (const input of urls) {
+        const url = input.value;
+        if(!url) continue
+        const res = await apiCall(url); 
+        const parentDiv = input.parentElement; 
+        parentDiv.querySelector(".content").innerText = res;
+    }
 }
 setInterval(refreshData, 10000);
 refreshData()
